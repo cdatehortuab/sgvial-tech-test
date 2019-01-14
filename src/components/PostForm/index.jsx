@@ -1,27 +1,54 @@
 import React from 'react';
-import { Form, Button, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import {
+  Form, Button, Icon, Input, TextArea,
+} from 'semantic-ui-react';
 import { Field } from 'redux-form';
 
-export default function PostForm() {
+import FormField from '../FormField';
+
+export default function PostForm({
+  postId,
+  handleSubmit,
+  pristine,
+  submitting,
+  reset,
+}) {
   return (
-    <Form>
-      <Form.Field>
-        {/* eslint-disable jsx-a11y/label-has-associated-control */}
-        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
-        <label htmlFor="title">Title</label>
-        {/* eslint-enable jsx-a11y/label-has-associated-control */}
-        <Field id="title" name="title" component="input" type="text" placeholder="Post title" />
-      </Form.Field>
-      <Form.Field>
-        {/* eslint-disable jsx-a11y/label-has-associated-control */}
-        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
-        <label htmlFor="body">Body</label>
-        {/* eslint-enable jsx-a11y/label-has-associated-control */}
-        <Field id="body" name="body" component="textarea" placeholder="Post text" />
-      </Form.Field>
-      <Button primary circular type="submit">
-        <Icon name="save" />
-        Save
+    <Form onSubmit={handleSubmit}>
+      <Field
+        name="title"
+        component={FormField}
+        inputId="titlePostInput"
+        label="Title"
+        required
+        showAs={Input}
+        placeholder="Post title"
+        type="text"
+      />
+      <Field
+        name="body"
+        component={FormField}
+        inputId="bodyPostInput"
+        label="Body"
+        required
+        showAs={TextArea}
+        placeholder="Post title"
+      />
+      <Button circular color="green" type="submit" disabled={submitting} loading={submitting}>
+        {!submitting ? (
+          <React.Fragment>
+            <Icon name="save" />
+            Save
+          </React.Fragment>
+        ) : 'Saving'}
+      </Button>
+      <Button primary circular type="button" disabled={pristine || submitting} onClick={reset}>
+        Reset form
+      </Button>
+      <Button circular as={Link} to={postId ? `/posts/${postId}` : '/posts'}>
+        <Icon name="cancel" />
+        Cancel
       </Button>
     </Form>
   );
