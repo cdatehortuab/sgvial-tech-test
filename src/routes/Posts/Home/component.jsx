@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Header, Icon, Button, Segment, Loader,
+  Header, Icon, Button, Segment, Loader, Message,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
@@ -15,9 +15,19 @@ export default class PostsHomeRoute extends React.Component {
   }
 
   render() {
-    const { posts, isFetchingPosts } = this.props;
+    const {
+      posts, isFetchingPosts, lastDeleted, location: { search },
+    } = this.props;
+    const isDeleteParamSuccess = (new URLSearchParams(search)).get('delete') === 'success';
+    const showDeleteMessage = isDeleteParamSuccess || !!lastDeleted;
     return (
       <div className="PostsHomeRoute">
+        {showDeleteMessage && (
+          <Message success visible={showDeleteMessage}>
+            <Message.Header>Success</Message.Header>
+            <p>The post has been successfully deleted</p>
+          </Message>
+        )}
         <Header as="h1" icon textAlign="center">
           <Icon name="file text" />
           Posts

@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
+import { submitPostForm } from '../../redux/actions';
+
 import PostForm from './component';
 
 function validate(post) {
@@ -28,16 +30,9 @@ function mapStateToProps(_state, { post }) {
   };
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function mapDispatchToProps() {
+function mapDispatchToProps(dispatch, { post }) {
   return {
-    async onSubmit(post) {
-      await sleep(500); // simulate server latency
-      window.alert(`You submitted:\n\n${JSON.stringify(post, null, 2)}`);
-    },
+    onSubmit: submitPostForm(dispatch, post),
   };
 }
 

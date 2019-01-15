@@ -5,10 +5,11 @@ import { fetchPosts } from '../../../redux/actions';
 
 import PostsHomeRoute from './component';
 
-function mapStateToProps({ posts, fetchingPosts }) {
+function mapStateToProps({ posts, fetchingPosts, lastDeleted }) {
   return {
     posts,
     isFetchingPosts: fetchingPosts.has(FETCHING_ALL),
+    lastDeleted,
   };
 }
 

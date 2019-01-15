@@ -7,9 +7,10 @@ import NotFound from '../components/NotFound';
 
 import { fetchPost } from '../redux/actions';
 
-function mapStateToProps({ posts, fetchingPosts }, { match: { params: { postId } } }) {
+function mapStateToProps({ posts, fetchingPosts, lastDeleted }, { match: { params: { postId } } }) {
   const formattedPostId = `${postId}`;
   return {
+    isLastDeleted: lastDeleted === formattedPostId,
     postId: formattedPostId,
     post: posts.get(formattedPostId),
     isFetchingPost: fetchingPosts.has(formattedPostId),
@@ -36,7 +37,7 @@ class FetchingPostComponent extends React.Component {
   }
 
   render() {
-    const { props: { Component, ...props }, state: { fetchStarted } } = this;
+    const { props: { Component, isLastDeleted, ...props }, state: { fetchStarted } } = this;
     const { post, isFetchingPost } = props;
     const showLoader = !post || isFetchingPost;
     const foundOrFetchingPost = showLoader ? (
@@ -46,9 +47,8 @@ class FetchingPostComponent extends React.Component {
     ) : (
       <Component {...props} />
     );
-    return fetchStarted && !isFetchingPost && !post ? (
-      <NotFound />
-    ) : foundOrFetchingPost;
+    const notFoundPost = isLastDeleted ? <Redirect to="/posts?delete=success" /> : <NotFound />;
+    return fetchStarted && !isFetchingPost && !post ? notFoundPost : foundOrFetchingPost;
   }
 }
 

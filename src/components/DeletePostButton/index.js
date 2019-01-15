@@ -1,16 +1,11 @@
 import { connect } from 'react-redux';
 
+import { confirmDelete } from '../../redux/actions';
+
 import DeletePostButton from './component';
 
-function mapDispatchToProps() {
-  return {
-    cancelDelete(postId) {
-      console.log(`Canceled Delete: ${postId}`);
-    },
-    confirmDelete(postId) {
-      console.log(`Confirmed Delete: ${postId}`);
-    },
-  };
-}
+const mapDispatchToProps = {
+  confirmDelete,
+};
 
 export default connect(null, mapDispatchToProps)(DeletePostButton);

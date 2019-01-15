@@ -11,6 +11,12 @@ export default class DeletePostButton extends React.PureComponent {
     this.openConfirm = this.openConfirm.bind(this);
   }
 
+  static get defaultProps() {
+    return {
+      cancelDelete() {},
+    };
+  }
+
   closeConfirm() {
     this.setState({
       isConfirmOpened: false,
