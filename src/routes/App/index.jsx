@@ -6,6 +6,7 @@ import AppMenu from '../../components/AppMenu';
 
 import PostsRoute from '../Posts';
 import HomeRoute from '../Home';
+import NotFound from '../../components/NotFound';
 
 import './style.css';
 
@@ -16,6 +17,7 @@ export default function AppRoute() {
       <Switch>
         <Route path="/posts" component={PostsRoute} />
         <Route path="/" exact component={HomeRoute} />
+        <Route component={NotFound} />
       </Switch>
     </Container>
   );

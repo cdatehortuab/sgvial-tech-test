@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import DeletePostButton from '../components/DeletePostButton';
+import DeletePostButton from './component';
 
 function mapDispatchToProps() {
   return {

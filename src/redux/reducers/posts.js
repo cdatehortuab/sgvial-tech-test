@@ -1,15 +1,22 @@
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
-const initialState = Map({
-  '1ac': Map({
-    id: '1ac',
-    title: 'Test title',
-    body: 'ABCD ABCD ABCD ABCD ABCD ABCD ABCD ABCD ABCD\nABCD ABCD ABCD ABCD ABCD ABCD ABCD ABCD ABCD ABCD ABCD ABCD ABCD',
-  }),
-});
+import {
+  FETCH_POSTS_SUCCESS,
+  FETCH_POST_SUCCESS,
+} from '../actions/types';
 
-export default function postsReducer(state = initialState, action) {
-  switch (action) {
+export default function postsReducer(state = Map(), action) {
+  let immutableResponse;
+  let newState;
+  switch (action.type) {
+    case FETCH_POSTS_SUCCESS:
+      immutableResponse = fromJS(action.response);
+      newState = state;
+      immutableResponse.forEach((post) => { newState = newState.set(`${post.get('id')}`, post); });
+      return newState;
+    case FETCH_POST_SUCCESS:
+      immutableResponse = fromJS(action.response);
+      return state.set(`${immutableResponse.get('id')}`, immutableResponse);
     default:
       return state;
   }

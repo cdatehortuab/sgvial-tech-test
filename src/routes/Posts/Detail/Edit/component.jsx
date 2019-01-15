@@ -1,16 +1,16 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 
-import PostFormContainer from '../../containers/PostForm';
+import PostForm from '../../../../components/PostForm';
 
-export default function PostEdit({ post }) {
+export default function PostsDetailEditRoute({ post }) {
   return (
-    <Container text className="PostEdit">
+    <Container text className="PostsDetailEditRoute">
       <Header as="h1" textAlign="center">
         Editing post:
         {` ${post.get('title')}`}
       </Header>
-      <PostFormContainer postId={post.get('id')} />
+      <PostForm post={post} />
     </Container>
   );
 }

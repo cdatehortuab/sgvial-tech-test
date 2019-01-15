@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
-import DeletePostButtonContainer from '../../containers/DeletePostButton';
+import DeletePostButton from '../DeletePostButton';
 
 const MAX_DESCRIPTION_CHARS = 80;
 
@@ -32,9 +32,9 @@ export default function PostCard({ post }) {
         <Button icon circular as={Link} to={`/posts/${post.get('id')}/edit`} title="Edit post">
           <Icon name="pencil" />
         </Button>
-        <DeletePostButtonContainer showAs={Button} icon circular color="red" title="Delete post" postId={post.get('id')}>
+        <DeletePostButton showAs={Button} icon circular color="red" title="Delete post" postId={post.get('id')}>
           <Icon name="delete" />
-        </DeletePostButtonContainer>
+        </DeletePostButton>
       </Card.Content>
     </Card>
   );

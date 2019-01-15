@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import PostForm from '../components/PostForm';
+import PostForm from './component';
 
 function validate(post) {
   const errors = {};
   if (!post.title) {
     errors.title = 'You must provide a title';
   } else if (post.title.length > 100) {
-    errors.title = 'Title can not exceed 100 character in length';
+    errors.title = 'Title can not exceed 100 characters in length';
   }
 
   if (!post.body) {
@@ -18,8 +18,7 @@ function validate(post) {
   return errors;
 }
 
-function mapStateToProps({ posts }, { postId }) {
-  const post = posts.get(postId);
+function mapStateToProps(_state, { post }) {
   const initialValues = post ? {
     title: post.get('title'),
     body: post.get('body'),
